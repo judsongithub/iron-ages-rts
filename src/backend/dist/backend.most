@@ -1,0 +1,91 @@
+// Version: 4.0.0
+type AccessControlState__201339279 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__230067015<Principal, UserRole__91647283>
+  };
+type AiDifficulty__653708047 = {#easy; #hard; #normal};
+type AiDifficulty__674754783 = {#easy; #hard; #normal};
+type Data__44217153<K, V> = {var count : Nat__227979830; kvs : [var ?(K, V)]};
+type Faction__132443852 = {#mongols; #romans; #vikings};
+type Faction__709098094 = {#mongols; #romans; #vikings};
+type Internal__283199666<K, V> =
+  {children : [var ?Node__204828119<K, V>]; data : Data__44217153<K, V>};
+type Leaf__598469445<K, V> = {data : Data__44217153<K, V>};
+type MapSize__1017838972 = {#large; #medium; #small};
+type MapSize__192245930 = {#large; #medium; #small};
+type Map__230067015<K, V> = Map__405889023<K, V>;
+type Map__405889023<K, V> = Map__603270868<K, V>;
+type Map__603270868<K, V> =
+  {var root : Node__204828119<K, V>; var size : Nat__227979830};
+type MatchId__543136929 = Nat;
+type MatchId__940322495 = MatchId__543136929;
+type MatchRecord__115948886 =
+  {
+    difficulty : AiDifficulty__674754783;
+    durationSeconds : Nat;
+    faction : Faction__709098094;
+    id : Nat;
+    mapSize : MapSize__1017838972;
+    recordedAt : Nat;
+    result : MatchResult__330101495
+  };
+type MatchRecord__943549554 =
+  {
+    difficulty : AiDifficulty__653708047;
+    durationSeconds : Nat;
+    faction : Faction__132443852;
+    id : MatchId__940322495;
+    mapSize : MapSize__192245930;
+    recordedAt : Timestamp__798483807;
+    result : MatchResult__221162202
+  };
+type MatchResult__221162202 = {#defeat; #victory};
+type MatchResult__330101495 = {#defeat; #victory};
+type Nat__227979830 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__664089349 =
+  {
+    accessControlState : AccessControlState__201339279;
+    matches : Map__230067015<Principal, [MatchRecord__115948886]>;
+    nextMatchId : {var value : Nat};
+    settings : Map__230067015<Principal, PlayerSettings__892407084>
+  };
+type Node__204828119<K, V> =
+  {#internal : Internal__283199666<K, V>; #leaf : Leaf__598469445<K, V>};
+type PlayerSettings__500920144 =
+  {
+    lastMapSize : MapSize__192245930;
+    preferredDifficulty : AiDifficulty__653708047;
+    preferredFaction : Faction__132443852
+  };
+type PlayerSettings__892407084 =
+  {
+    lastMapSize : MapSize__1017838972;
+    preferredDifficulty : AiDifficulty__674754783;
+    preferredFaction : Faction__709098094
+  };
+type Timestamp__301639476 = Nat;
+type Timestamp__798483807 = Timestamp__301639476;
+type UserRole__91647283 = {#admin; #guest; #user};
+{
+  "20260918_000000" : (_old : {}) -> NewActor__664089349
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__230067015<Principal, UserRole__91647283>
+    };
+  stable matches :
+    {
+      var root : Node__204828119<Principal, [MatchRecord__943549554]>;
+      var size : Nat__227979830
+    };
+  stable nextMatchId : {var value : Nat};
+  stable settings :
+    {
+      var root : Node__204828119<Principal, PlayerSettings__500920144>;
+      var size : Nat__227979830
+    }
+};

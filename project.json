@@ -1,0 +1,23 @@
+{
+  "overview": "A historical real-time strategy game with a six-resource economy, four ages, ten-player lobbies, teams and diplomacy, and an energy grid that powers advanced weapons.",
+  "features": [
+    "Ten-player lobby with Open, AI, and Closed slots and per-player population limits",
+    "Six-resource economy: Food, Wood, Gold, Stone, Money, and Energy",
+    "Four ages of advancement with per-age energy generation buildings",
+    "Teams 1-6 with allies, shared base access, and shared vision research",
+    "Market trading, financial aid, and investment contracts",
+    "Automated farms that produce Food every 20 seconds",
+    "Energy grid with distribution centers and weapon power throttling",
+    "Dense forests, large-scale maps, and smooth group pathfinding",
+    "In-game manual with five detailed guide tabs"
+  ],
+  "category": "game",
+  "tags": [
+    "rts",
+    "strategy",
+    "historical",
+    "multiplayer-lobby",
+    "economy"
+  ],
+  "last_updated": "2026-09-19T01:17:08.519Z"
+}

@@ -1,0 +1,131 @@
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type Timestamp = nat;
+type Result__1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type PlayerSettings = 
+ record {
+   lastMapSize: MapSize;
+   preferredDifficulty: AiDifficulty;
+   preferredFaction: Faction;
+ };
+type MatchStats = 
+ record {
+   byFaction: vec FactionStats;
+   losses: nat;
+   totalDurationSeconds: nat;
+   totalMatches: nat;
+   wins: nat;
+ };
+type MatchResult = 
+ variant {
+   defeat;
+   victory;
+ };
+type MatchRecord = 
+ record {
+   difficulty: AiDifficulty;
+   durationSeconds: nat;
+   faction: Faction;
+   id: MatchId;
+   mapSize: MapSize;
+   recordedAt: Timestamp;
+   result: MatchResult;
+ };
+type MatchId = nat;
+type MapSize = 
+ variant {
+   large;
+   medium;
+   small;
+ };
+type FactionStats = 
+ record {
+   faction: Faction;
+   losses: nat;
+   totalMatches: nat;
+   wins: nat;
+ };
+type Faction = 
+ variant {
+   mongols;
+   romans;
+   vikings;
+ };
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+type AiDifficulty = 
+ variant {
+   easy;
+   hard;
+   normal;
+ };
+service : {
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1);
+  _internet_identity_sign_in_start: () -> (blob);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  execute: (qJson: text) -> (Result) query;
+  /// Returns the public API documentation as static Markdown.
+  getApiDoc: () -> (text) query;
+  getCallerUserRole: () -> (UserRole) query;
+  /// Returns aggregate win/loss and per-faction statistics for the caller.
+  getMatchStats: () -> (MatchStats) query;
+  /// Reads the caller's saved settings.
+  getSettings: () -> (opt PlayerSettings) query;
+  isCallerAdmin: () -> (bool) query;
+  /// Lists the caller's most recent matches, newest first.
+  listRecentMatches: (limit: nat) -> (vec MatchRecord) query;
+  /// Records a completed skirmish for the signed-in caller.
+  recordMatch: (faction: Faction, mapSize: MapSize, difficulty: AiDifficulty,
+   result: MatchResult, durationSeconds: nat) -> (MatchId);
+  /// Saves the caller's settings and returns the stored value.
+  saveSettings: (value: PlayerSettings) -> (PlayerSettings);
+  schema: () -> (text) query;
+}

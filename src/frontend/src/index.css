@@ -1,0 +1,361 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------
+   Field Ledger — bundled fonts
+   ------------------------------------------------------------------ */
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/Fraunces.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/assets/fonts/Satoshi.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 300 900;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 100 800;
+}
+
+@layer base {
+  :root {
+    --font-display: "Fraunces";
+    --font-body: "Satoshi";
+    --font-mono: "JetBrains Mono";
+    --radius: 0.25rem;
+
+    /* --- surfaces: tallow-lit parchment (light / ledger mode) --- */
+    --background: 0.945 0.018 78;
+    --foreground: 0.235 0.028 62;
+    --card: 0.972 0.016 80;
+    --card-foreground: 0.235 0.028 62;
+    --popover: 0.978 0.014 80;
+    --popover-foreground: 0.235 0.028 62;
+
+    /* --- primary: iron-gall ink --- */
+    --primary: 0.315 0.038 62;
+    --primary-foreground: 0.955 0.014 80;
+
+    /* --- secondary / muted: dust & linen --- */
+    --secondary: 0.895 0.022 76;
+    --secondary-foreground: 0.325 0.03 62;
+    --muted: 0.9 0.02 76;
+    --muted-foreground: 0.485 0.026 60;
+
+    /* --- accent: ochre pigment --- */
+    --accent: 0.575 0.125 68;
+    --accent-foreground: 0.965 0.014 80;
+
+    /* --- status --- */
+    --destructive: 0.475 0.185 28;
+    --destructive-foreground: 0.96 0.012 80;
+    --success: 0.485 0.115 142;
+    --success-foreground: 0.96 0.012 80;
+    --warning: 0.665 0.135 72;
+    --warning-foreground: 0.225 0.03 62;
+
+    --border: 0.845 0.026 74;
+    --input: 0.845 0.026 74;
+    --ring: 0.575 0.125 68;
+
+    /* --- charts --- */
+    --chart-1: 0.575 0.125 68;
+    --chart-2: 0.485 0.115 142;
+    --chart-3: 0.475 0.185 28;
+    --chart-4: 0.42 0.05 240;
+    --chart-5: 0.665 0.135 72;
+
+    /* --- sidebar: leather-bound panel --- */
+    --sidebar: 0.915 0.02 76;
+    --sidebar-foreground: 0.265 0.028 62;
+    --sidebar-primary: 0.315 0.038 62;
+    --sidebar-primary-foreground: 0.955 0.014 80;
+    --sidebar-accent: 0.875 0.024 74;
+    --sidebar-accent-foreground: 0.265 0.028 62;
+    --sidebar-border: 0.845 0.026 74;
+    --sidebar-ring: 0.575 0.125 68;
+
+    /* ============================================================
+       RTS DOMAIN TOKENS
+       ============================================================ */
+
+    /* --- resources: six named yields --- */
+    --resource-food: 0.735 0.125 128;
+    --resource-wood: 0.5 0.095 58;
+    --resource-gold: 0.78 0.145 88;
+    --resource-stone: 0.635 0.018 250;
+    --resource-money: 0.665 0.105 168;
+    --resource-energy: 0.72 0.16 305;
+
+    /* --- faction banners: must read on terrain --- */
+    --faction-1: 0.525 0.185 28; /* Ember Legion — dried-blood red */
+    --faction-2: 0.475 0.115 232; /* Tide Concord — deep indigo */
+    --faction-3: 0.545 0.125 142; /* Verdant Pact — moss green */
+
+    /* --- health & morale --- */
+    --health-full: 0.545 0.155 142;
+    --health-mid: 0.72 0.145 78;
+    --health-low: 0.52 0.19 28;
+    --health-empty: 0.32 0.02 60;
+
+    /* --- placement & selection indicators --- */
+    --selection: 0.815 0.135 92;
+    --valid: 0.7 0.15 145;
+    --invalid: 0.56 0.2 28;
+    --rally: 0.72 0.13 200;
+
+    /* --- HUD chrome --- */
+    --hud-bg: 0.2 0.022 58;
+    --hud-fg: 0.93 0.012 78;
+    --hud-muted: 0.66 0.018 70;
+    --hud-border: 0.36 0.026 58;
+    --hud-accent: 0.78 0.145 88;
+
+    /* --- terrain swatches (canvas fallbacks) --- */
+    --terrain-grass: 0.52 0.075 128;
+    --terrain-dirt: 0.5 0.06 66;
+    --terrain-rock: 0.44 0.015 250;
+    --terrain-water: 0.42 0.055 235;
+    --terrain-sand: 0.76 0.075 82;
+
+    /* --- gradients & motion --- */
+    --gradient-primary: linear-gradient(
+      180deg,
+      oklch(0.42 0.05 62) 0%,
+      oklch(0.28 0.035 60) 100%
+    );
+    --gradient-hud: linear-gradient(
+      180deg,
+      oklch(0.24 0.026 58 / 0.94) 0%,
+      oklch(0.17 0.02 56 / 0.96) 100%
+    );
+    --gradient-parchment: linear-gradient(
+      180deg,
+      oklch(0.975 0.016 80) 0%,
+      oklch(0.93 0.02 76) 100%
+    );
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --font-display: "Fraunces";
+    --font-body: "Satoshi";
+    --font-mono: "JetBrains Mono";
+    --radius: 0.25rem;
+
+    /* --- surfaces: soot, iron, wet earth --- */
+    --background: 0.155 0.016 58;
+    --foreground: 0.925 0.014 78;
+    --card: 0.205 0.02 58;
+    --card-foreground: 0.925 0.014 78;
+    --popover: 0.235 0.022 58;
+    --popover-foreground: 0.925 0.014 78;
+
+    /* --- primary: lamplit ochre --- */
+    --primary: 0.735 0.135 78;
+    --primary-foreground: 0.175 0.02 58;
+
+    --secondary: 0.265 0.024 58;
+    --secondary-foreground: 0.855 0.014 78;
+    --muted: 0.265 0.024 58;
+    --muted-foreground: 0.635 0.02 72;
+
+    --accent: 0.735 0.135 78;
+    --accent-foreground: 0.175 0.02 58;
+
+    --destructive: 0.545 0.185 28;
+    --destructive-foreground: 0.945 0.012 78;
+    --success: 0.63 0.135 142;
+    --success-foreground: 0.175 0.02 58;
+    --warning: 0.745 0.14 78;
+    --warning-foreground: 0.175 0.02 58;
+
+    --border: 0.315 0.024 58;
+    --input: 0.315 0.024 58;
+    --ring: 0.735 0.135 78;
+
+    --chart-1: 0.735 0.135 78;
+    --chart-2: 0.63 0.135 142;
+    --chart-3: 0.545 0.185 28;
+    --chart-4: 0.6 0.09 235;
+    --chart-5: 0.72 0.15 305;
+
+    --sidebar: 0.19 0.02 58;
+    --sidebar-foreground: 0.925 0.014 78;
+    --sidebar-primary: 0.735 0.135 78;
+    --sidebar-primary-foreground: 0.175 0.02 58;
+    --sidebar-accent: 0.265 0.024 58;
+    --sidebar-accent-foreground: 0.855 0.014 78;
+    --sidebar-border: 0.315 0.024 58;
+    --sidebar-ring: 0.735 0.135 78;
+
+    /* --- resources: six named yields --- */
+    --resource-food: 0.755 0.13 128;
+    --resource-wood: 0.615 0.105 58;
+    --resource-gold: 0.8 0.15 88;
+    --resource-stone: 0.68 0.02 250;
+    --resource-money: 0.71 0.11 168;
+    --resource-energy: 0.745 0.165 305;
+
+    /* --- faction banners --- */
+    --faction-1: 0.575 0.19 28;
+    --faction-2: 0.585 0.13 232;
+    --faction-3: 0.625 0.14 142;
+
+    /* --- health & morale --- */
+    --health-full: 0.63 0.155 142;
+    --health-mid: 0.755 0.145 78;
+    --health-low: 0.565 0.19 28;
+    --health-empty: 0.3 0.018 58;
+
+    /* --- placement & selection indicators --- */
+    --selection: 0.835 0.14 92;
+    --valid: 0.72 0.155 145;
+    --invalid: 0.6 0.2 28;
+    --rally: 0.745 0.135 200;
+
+    /* --- HUD chrome --- */
+    --hud-bg: 0.185 0.02 58;
+    --hud-fg: 0.93 0.012 78;
+    --hud-muted: 0.645 0.018 70;
+    --hud-border: 0.335 0.026 58;
+    --hud-accent: 0.8 0.15 88;
+
+    /* --- terrain swatches --- */
+    --terrain-grass: 0.475 0.07 128;
+    --terrain-dirt: 0.455 0.055 66;
+    --terrain-rock: 0.4 0.014 250;
+    --terrain-water: 0.375 0.05 235;
+    --terrain-sand: 0.7 0.07 82;
+
+    /* --- gradients & motion --- */
+    --gradient-primary: linear-gradient(
+      180deg,
+      oklch(0.82 0.14 82) 0%,
+      oklch(0.66 0.13 72) 100%
+    );
+    --gradient-hud: linear-gradient(
+      180deg,
+      oklch(0.235 0.024 58 / 0.94) 0%,
+      oklch(0.15 0.018 56 / 0.97) 100%
+    );
+    --gradient-parchment: linear-gradient(
+      180deg,
+      oklch(0.245 0.022 58) 0%,
+      oklch(0.19 0.02 56) 100%
+    );
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  /* --- surface treatments --- */
+  .bg-gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+  .bg-gradient-hud {
+    background-image: var(--gradient-hud);
+  }
+  .bg-gradient-parchment {
+    background-image: var(--gradient-parchment);
+  }
+
+  /* --- weathered paper grain: layered dot + fibre texture --- */
+  .texture-grain {
+    background-image: radial-gradient(oklch(0 0 0 / 0.05) 1px, transparent 1px),
+      radial-gradient(oklch(0 0 0 / 0.035) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 2px 3px;
+  }
+
+  .texture-hud {
+    background-image: repeating-linear-gradient(
+      0deg,
+      oklch(0 0 0 / 0.16) 0px,
+      oklch(0 0 0 / 0.16) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
+
+  .texture-hatch {
+    background-image: repeating-linear-gradient(
+      45deg,
+      oklch(0 0 0 / 0.07) 0px,
+      oklch(0 0 0 / 0.07) 1px,
+      transparent 1px,
+      transparent 5px
+    );
+  }
+
+  /* --- HUD panel: iron plate with rivet corners --- */
+  .panel-iron {
+    background-color: oklch(var(--hud-bg) / 0.94);
+    border: 1px solid oklch(var(--hud-border));
+    box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.06), inset 0 -1px 0
+      oklch(0 0 0 / 0.4), 0 2px 0 oklch(0 0 0 / 0.35);
+  }
+
+  .panel-parchment {
+    background-color: oklch(var(--card));
+    background-image: var(--gradient-parchment);
+    border: 1px solid oklch(var(--border));
+    box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.5), 0 1px 2px oklch(0 0 0 / 0.18);
+  }
+
+  /* --- text treatments --- */
+  .text-engraved {
+    text-shadow: 0 1px 0 oklch(0 0 0 / 0.55), 0 -1px 0 oklch(1 0 0 / 0.08);
+  }
+
+  .text-carved {
+    text-shadow: 0 1px 0 oklch(1 0 0 / 0.45);
+  }
+
+  .label-stencil {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* --- resource bar segments --- */
+  .bar-track {
+    background-color: oklch(var(--health-empty) / 0.55);
+    box-shadow: inset 0 1px 2px oklch(0 0 0 / 0.5);
+  }
+
+  .indicator-selection {
+    outline: 2px solid oklch(var(--selection));
+    outline-offset: 2px;
+  }
+  .indicator-valid {
+    outline: 2px solid oklch(var(--valid));
+    outline-offset: 2px;
+  }
+  .indicator-invalid {
+    outline: 2px solid oklch(var(--invalid));
+    outline-offset: 2px;
+  }
+}
